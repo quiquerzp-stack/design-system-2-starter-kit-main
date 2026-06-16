@@ -1,0 +1,54 @@
+/* ── Header banner ──────────────────────────────────────────────────────── */
+.cirrus-banner {
+    background: linear-gradient(
+        135deg,
+        var(--slds-g-color-brand-base-10, #032D60) 0%,
+        var(--slds-g-color-brand-base-30, #0070D2) 100%
+    );
+    border-radius: 0.5rem;
+}
+
+/* ── Metric card values ─────────────────────────────────────────────────── */
+.metric-value {
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    margin-bottom: 0.375rem;
+}
+
+.metric-value_orange  { color: #FF6B35; }
+.metric-value_brand   { color: var(--slds-g-color-brand-base-40, #0070D2); }
+.metric-value_success { color: var(--slds-g-color-feedback-positive-40, #2E844A); }
+.metric-value_teal    { color: #117865; }
+
+/* ── Risk boxes (churn display) ─────────────────────────────────────────── */
+.risk-box {
+    border-radius: 0.25rem;
+    border: 1px solid transparent;
+}
+.risk-box_danger  { background: #FEEFED; border-color: #FCCCC9; }
+.risk-box_success { background: #EEF6EE; border-color: #BDEDB7; }
+
+/* ── NPS comparison ─────────────────────────────────────────────────────── */
+.nps-comparison { gap: 1rem; }
+.nps-arrow {
+    font-size: 1.5rem;
+    color: var(--slds-g-color-brand-base-40, #0070D2);
+    font-weight: 300;
+}
+.nps-score {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin: 0.25rem 0;
+}
+.nps-score_before { color: var(--slds-g-color-neutral-base-50, #ADB5BD); }
+.nps-score_after  { color: var(--slds-g-color-feedback-positive-40, #2E844A); }
+
+/* ── Citation text ──────────────────────────────────────────────────────── */
+.citation-text {
+    font-style: italic;
+    line-height: 1.5;
+}

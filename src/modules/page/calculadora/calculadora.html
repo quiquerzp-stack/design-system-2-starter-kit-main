@@ -1,0 +1,311 @@
+<template>
+    <lightning-layout
+        multiple-rows="true"
+        class="slds-container_x-large slds-container_center slds-m-top_large slds-p-horizontal_large">
+
+        <!-- ── Header Banner ── -->
+        <lightning-layout-item size="12" class="slds-m-bottom_medium">
+            <div class="cirrus-banner slds-p-around_large slds-text-align_center">
+                <h1 class="slds-text-heading_large slds-text-color_inverse slds-m-bottom_x-small">
+                    Calculadora de Valor
+                </h1>
+                <p class="slds-text-heading_small slds-text-color_inverse-weak slds-m-bottom_small">
+                    Cirrus Solar Energy + Salesforce Platform
+                </p>
+                <lightning-badge label="v2.0 · Customer Success Edition"></lightning-badge>
+            </div>
+        </lightning-layout-item>
+
+        <!-- ── Info Banner ── -->
+        <lightning-layout-item size="12" class="slds-m-bottom_medium">
+            <div class="slds-notify slds-notify_alert slds-theme_info" role="alert">
+                <lightning-icon icon-name="utility:info" alternative-text="info" size="x-small"
+                    class="slds-m-right_x-small"></lightning-icon>
+                <span>
+                    <strong>Nuevo en v2.0:</strong> El Board de Cirrus tiene dos frentes: crecer a $30M
+                    <em>y</em> proteger su base instalada ante Natural Solar. Esta calculadora modela
+                    las <strong>5 palancas completas</strong> — incluyendo retención de clientes vía CSAT
+                    y expansión de promotores NPS.
+                </span>
+            </div>
+        </lightning-layout-item>
+
+        <!-- ── Metric Cards ── -->
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+            <lightning-layout multiple-rows="true" pull-to-boundary="small">
+
+                <lightning-layout-item size="12" medium-device-size="3" padding="horizontal-small" class="slds-m-bottom_small">
+                    <lightning-card class="metric-card metric-card_orange">
+                        <div class="slds-text-align_center slds-p-around_medium">
+                            <div class="metric-value metric-value_orange">{annualValue}</div>
+                            <div class="slds-text-body_small slds-text-color_weak">
+                                <strong>Revenue incremental anual</strong>
+                            </div>
+                            <div class="slds-text-body_small slds-text-color_weak">5 palancas · Salesforce Platform</div>
+                        </div>
+                    </lightning-card>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="3" padding="horizontal-small" class="slds-m-bottom_small">
+                    <lightning-card>
+                        <div class="slds-text-align_center slds-p-around_medium">
+                            <div class="metric-value metric-value_brand">{y2Value}</div>
+                            <div class="slds-text-body_small slds-text-color_weak">
+                                <strong>Revenue proyectado Y2</strong>
+                            </div>
+                            <div class="slds-text-body_small slds-text-color_weak">Con Salesforce live en mes 3</div>
+                        </div>
+                    </lightning-card>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="3" padding="horizontal-small" class="slds-m-bottom_small">
+                    <lightning-card>
+                        <div class="slds-text-align_center slds-p-around_medium">
+                            <div class="metric-value metric-value_success">{gapValue}</div>
+                            <div class="slds-text-body_small slds-text-color_weak">
+                                <strong>Del gap a $30M cubierto</strong>
+                            </div>
+                            <div class="slds-text-body_small slds-text-color_weak">Resto: hiring + expansión global</div>
+                        </div>
+                    </lightning-card>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="3" padding="horizontal-small" class="slds-m-bottom_small">
+                    <lightning-card>
+                        <div class="slds-text-align_center slds-p-around_medium">
+                            <div class="metric-value metric-value_teal">{csValue}</div>
+                            <div class="slds-text-body_small slds-text-color_weak">
+                                <strong>Revenue protegido / CS</strong>
+                            </div>
+                            <div class="slds-text-body_small slds-text-color_weak">Retención + expansión promotores</div>
+                        </div>
+                    </lightning-card>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
+
+        <!-- ── Tabs ── -->
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+            <lightning-tabset>
+
+                <!-- Tab 1: Sales & Marketing -->
+                <lightning-tab label="Sales &amp; Marketing" value="sales" icon-name="utility:trending">
+                    <div class="slds-p-around_medium">
+                        <lightning-layout multiple-rows="true" pull-to-boundary="small">
+
+                            <lightning-layout-item size="12" medium-device-size="4" padding="horizontal-small" class="slds-m-bottom_medium">
+                                <lightning-card title="1. Productividad de ventas">
+                                    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                                        <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                                            <span class="slds-text-body_small slds-text-color_weak">Aporte anual (full run rate)</span>
+                                            <span class="slds-text-heading_small slds-text-color_brand">{productivityContrib}</span>
+                                        </div>
+                                        <lightning-slider
+                                            label="Productividad"
+                                            value={productivity}
+                                            min="10" max="35" step="1"
+                                            onchange={handleProductivityChange}>
+                                        </lightning-slider>
+                                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_small citation-text">
+                                            <strong>Forrester TEI Sales Cloud (2023):</strong> 27% productivity gain
+                                            sobre revenue directo. Cirrus tiene 25 reps en silos con Excel/Outlook —
+                                            sin pipeline visibility ni móvil.
+                                        </p>
+                                    </div>
+                                </lightning-card>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="12" medium-device-size="4" padding="horizontal-small" class="slds-m-bottom_medium">
+                                <lightning-card title="2. Expansión en cuentas existentes">
+                                    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                                        <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                                            <span class="slds-text-body_small slds-text-color_weak">Aporte anual (full run rate)</span>
+                                            <span class="slds-text-heading_small slds-text-color_brand">{expansionContrib}</span>
+                                        </div>
+                                        <lightning-slider
+                                            label="Expansión en cuentas"
+                                            value={expansion}
+                                            min="5" max="35" step="1"
+                                            onchange={handleExpansionChange}>
+                                        </lightning-slider>
+                                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_small citation-text">
+                                            <strong>Forrester TEI Sales Cloud (2023):</strong> 28% aumento en
+                                            upsell/cross-sell. Cirrus no sabe a quién contactar en sus 70 cuentas.
+                                        </p>
+                                    </div>
+                                </lightning-card>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="12" medium-device-size="4" padding="horizontal-small" class="slds-m-bottom_medium">
+                                <lightning-card title="3. ROI de Marketing">
+                                    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                                        <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                                            <span class="slds-text-body_small slds-text-color_weak">Aporte anual (full run rate)</span>
+                                            <span class="slds-text-heading_small slds-text-color_brand">{marketingContrib}</span>
+                                        </div>
+                                        <lightning-slider
+                                            label="ROI de Marketing"
+                                            value={marketing}
+                                            min="10" max="50" step="1"
+                                            onchange={handleMarketingChange}>
+                                        </lightning-slider>
+                                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_small citation-text">
+                                            <strong>Forrester TEI Marketing Cloud (Pardot):</strong> 30% aumento en
+                                            pipeline. El VP de Marketing pierde visibilidad al pasar leads a Sales.
+                                        </p>
+                                    </div>
+                                </lightning-card>
+                            </lightning-layout-item>
+
+                        </lightning-layout>
+                    </div>
+                </lightning-tab>
+
+                <!-- Tab 2: Customer Success -->
+                <lightning-tab label="Customer Success" value="cs" icon-name="utility:people">
+                    <div class="slds-p-around_medium">
+                        <lightning-layout multiple-rows="true" pull-to-boundary="small">
+
+                            <lightning-layout-item size="12" medium-device-size="6" padding="horizontal-small" class="slds-m-bottom_medium">
+                                <lightning-card title="4. Reducción de churn (CSAT)">
+                                    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                                        <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                                            <span class="slds-text-body_small slds-text-color_weak">Revenue protegido anual</span>
+                                            <span class="slds-text-heading_small slds-text-color_success">{churnContrib}</span>
+                                        </div>
+                                        <lightning-slider
+                                            label="Reducción de churn"
+                                            value={churnReduction}
+                                            min="5" max="50" step="1"
+                                            onchange={handleChurnChange}>
+                                        </lightning-slider>
+
+                                        <lightning-layout multiple-rows="false" class="slds-m-top_small" pull-to-boundary="small">
+                                            <lightning-layout-item size="6" padding="horizontal-small">
+                                                <div class="risk-box risk-box_danger slds-text-align_center slds-p-around_small">
+                                                    <div class="slds-text-body_small slds-text-color_error">En riesgo sin SF</div>
+                                                    <div class="slds-text-heading_small slds-text-color_error">$2.25M</div>
+                                                </div>
+                                            </lightning-layout-item>
+                                            <lightning-layout-item size="6" padding="horizontal-small">
+                                                <div class="risk-box risk-box_success slds-text-align_center slds-p-around_small">
+                                                    <div class="slds-text-body_small slds-text-color_success">Protegido con SF</div>
+                                                    <div class="slds-text-heading_small slds-text-color_success">{churnProtected}</div>
+                                                </div>
+                                            </lightning-layout-item>
+                                        </lightning-layout>
+
+                                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_small citation-text">
+                                            <strong>Forrester TEI Service Cloud (2023):</strong> 25% reducción de churn
+                                            con 360° view del cliente. Cirrus tiene 5 CSRs con ZenDesk sin integración
+                                            CRM. Baseline churn: 15% · $2.25M en riesgo.
+                                        </p>
+                                    </div>
+                                </lightning-card>
+                            </lightning-layout-item>
+
+                            <lightning-layout-item size="12" medium-device-size="6" padding="horizontal-small" class="slds-m-bottom_medium">
+                                <lightning-card title="5. NPS lift → expansión de promotores">
+                                    <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                                        <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                                            <span class="slds-text-body_small slds-text-color_weak">Expansión de promotores</span>
+                                            <span class="slds-text-heading_small slds-text-color_success">{npsContrib}</span>
+                                        </div>
+                                        <lightning-slider
+                                            label="NPS lift (puntos)"
+                                            value={npsLift}
+                                            min="5" max="40" step="1"
+                                            onchange={handleNpsChange}>
+                                        </lightning-slider>
+
+                                        <!-- NPS Before / After -->
+                                        <div class="nps-comparison slds-m-top_medium slds-grid slds-gutters slds-grid_align-center slds-grid_vertical-align-center">
+                                            <div class="slds-col slds-text-align_center">
+                                                <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_xx-small">NPS Actual</p>
+                                                <p class="nps-score nps-score_before">{npsBeforeDisplay}</p>
+                                                <lightning-badge label="Pasivo"></lightning-badge>
+                                            </div>
+                                            <div class="slds-col slds-shrink slds-text-align_center nps-arrow">→</div>
+                                            <div class="slds-col slds-text-align_center">
+                                                <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_xx-small">Con Salesforce</p>
+                                                <p class="nps-score nps-score_after">{npsAfterDisplay}</p>
+                                                <lightning-badge label={npsZoneLabel}></lightning-badge>
+                                            </div>
+                                        </div>
+
+                                        <p class="slds-text-body_small slds-text-color_weak slds-m-top_small citation-text">
+                                            <strong>Bain &amp; Company + Forrester Service Cloud:</strong> Promotores
+                                            gastan 3x más en expansión que detractores. Service Cloud mejora NPS
+                                            20-40 puntos. Palanca: 20% de 70 cuentas expanden ~30%.
+                                        </p>
+                                    </div>
+                                </lightning-card>
+                            </lightning-layout-item>
+
+                        </lightning-layout>
+                    </div>
+                </lightning-tab>
+
+                <!-- Tab 3: Análisis -->
+                <lightning-tab label="Análisis" value="charts" icon-name="utility:chart">
+                    <div class="slds-p-around_medium">
+                        <lightning-card title="Desglose de las 5 palancas">
+                            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                                <p class="slds-text-body_regular slds-text-color_weak slds-m-bottom_medium">
+                                    Revenue incremental anual atribuible a Salesforce Platform (full run rate, sin factor Y1).
+                                </p>
+                                <lightning-datatable
+                                    key-field="id"
+                                    data={breakdownData}
+                                    columns={breakdownColumns}
+                                    hide-checkbox-column>
+                                </lightning-datatable>
+                            </div>
+                        </lightning-card>
+                    </div>
+                </lightning-tab>
+
+            </lightning-tabset>
+        </lightning-layout-item>
+
+        <!-- ── Narrative ── -->
+        <lightning-layout-item size="12" class="slds-m-bottom_medium">
+            <lightning-card title="La lectura honesta — v2.0" icon-name="utility:knowledge_base">
+                <div class="slds-p-horizontal_large slds-p-bottom_large">
+                    <p class="slds-text-body_regular">
+                        Las 5 palancas con citas de Forrester y Bain cierran <strong>{gapClosedPct}%</strong> del
+                        gap a $30M. Sales Cloud y Marketing Cloud aportan <strong>{salesContrib}</strong> de
+                        crecimiento ofensivo. Service Cloud protege y expande la base instalada con
+                        <strong>{csContrib}</strong> adicionales — clave para Cirrus que hoy pierde clientes
+                        ante Natural Solar sin visibilidad de CSAT ni 360° view. Los <strong>{remaining}</strong>
+                        restantes vienen de hiring, EMEA/APAC/LATAM y módulos adicionales, todos habilitados
+                        por la plataforma unificada que Salesforce entrega como foundation.
+                    </p>
+                </div>
+            </lightning-card>
+        </lightning-layout-item>
+
+        <!-- ── Footer / Fuentes ── -->
+        <lightning-layout-item size="12" class="slds-m-bottom_large">
+            <lightning-card title="Fuentes y metodología — v2.0" icon-name="utility:info">
+                <div class="slds-p-horizontal_large slds-p-bottom_large slds-text-body_small slds-text-color_weak">
+                    <p><strong>Revenue baseline:</strong> $15M · 70 clientes · Avg deal $80K · Avg customer value: $214K.</p>
+                    <p class="slds-m-top_x-small">
+                        <strong>Palancas 1–3 (Sales + Mktg Cloud):</strong>
+                        Productividad: $12M × prod% · Expansión: $15M × (exp% − 3%) · Marketing: $15M × 25% × lift% · Factor Y1: 75%.
+                    </p>
+                    <p class="slds-m-top_x-small">
+                        <strong>Palancas 4–5 (Service Cloud):</strong>
+                        Churn baseline 15% · Revenue at risk $2.25M · NPS promoter ceiling $900K · Factor Y1: 75%.
+                    </p>
+                    <p class="slds-m-top_x-small">
+                        <strong>Fuentes:</strong> Forrester TEI™ Sales Cloud (2023) · Forrester TEI™ Marketing Cloud (Pardot) ·
+                        Forrester TEI™ Service Cloud (2023) · Bain &amp; Company "The Economics of Loyalty" ·
+                        Salesforce State of Sales 2024 · Salesforce State of Service 2024.
+                    </p>
+                </div>
+            </lightning-card>
+        </lightning-layout-item>
+
+    </lightning-layout>
+</template>

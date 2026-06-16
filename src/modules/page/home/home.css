@@ -1,0 +1,13 @@
+lightning-card {
+    --slds-c-card-body-spacing-inline: var(--slds-g-spacing-var-inline-4);
+}
+
+.spinner-demo {
+    height: 100px;
+}
+
+@media (min-width: 48em) {
+    .home-input-item-second {
+        margin-top: 0;
+    }
+}
